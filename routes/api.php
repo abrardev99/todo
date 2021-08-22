@@ -1,24 +1,18 @@
 <?php
 
+use App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\Auth;
 
-Route::get('/', function (){
-    return 'API';
-});
+Route::post('login', [Auth\LoginController::class, 'login']);
+Route::post('register', Auth\RegisterController::class);
 
-Route::group([
+Route::group(['middleware' => 'auth:api'], function (){
+    Route::get('/me', [API\UserController::class, 'me']);
+    Route::get('/logout', [Auth\LoginController::class, 'logout']);
 
-    'middleware' => 'api',
-    'prefix' => 'auth'
-
-], function ($router) {
-
-    Route::post('login', 'AuthController@login');
-//    Route::post('logout', 'AuthController@logout');
-//    Route::post('refresh', 'AuthController@refresh');
-//    Route::post('me', 'AuthController@me');
-
+    Route::apiResource('todo', API\TodoController::class);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
