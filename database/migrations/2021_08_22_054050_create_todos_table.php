@@ -18,6 +18,11 @@ class CreateTodosTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->timestamps();
+
+            $table->foreignId('user_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
