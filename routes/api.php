@@ -8,7 +8,7 @@ use App\Http\Controllers\API\Auth;
 Route::post('login', [Auth\LoginController::class, 'login']);
 Route::post('register', Auth\RegisterController::class);
 
-Route::group(['middleware' => 'auth:api'], function (){
+Route::group(['middleware' => ['auth:api', 'verified']], function (){
     Route::get('/me', [API\UserController::class, 'me']);
     Route::get('/logout', [Auth\LoginController::class, 'logout']);
 
