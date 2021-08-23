@@ -22,7 +22,9 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
         'password',
+        'verification_code',
     ];
 
     /**
@@ -44,11 +46,13 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function sendEmailVerificationNotification()
+    public function markEmailAsVerified()
     {
-        $this->notify(new \App\Notifications\VerifyEmailQueued);
+        return $this->forceFill([
+            'email_verified_at' => $this->freshTimestamp(),
+            'verification_code' => null,
+        ])->save();
     }
-
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

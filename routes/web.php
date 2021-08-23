@@ -14,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return new App\Mail\SendEmailVerificationMail('1212');
     return view('welcome');
+
 });

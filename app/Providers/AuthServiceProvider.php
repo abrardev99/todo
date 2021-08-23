@@ -26,13 +26,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-
-        // change verification email default text
-        VerifyEmail::toMailUsing(function ($notifiable, $url) {
-            return (new MailMessage)
-                ->subject('Verify Email Address')
-                ->line('Enter the OTP below to verify your email address.');
-        });
     }
 }
