@@ -1,48 +1,24 @@
-# php-assessment
-## PHP Laravel assessment task
+# Setup Project 
+- First, clone project by using `git clone https://github.com/abrardev99/todo.git` 
+- Copy .env.example file using `cp .env.example .env` and setup database.
+- run `composer install`
 
-This code challenge is to assess your skills in developing a simple API for a todo list application. For this code challenge you must use laravel and expose the API endpoints.
+### Seed initial data for testing purposes. 
+run `php artisan migrate --seed`. 
+this will seed one user and few todos.
+- User credentials
+Email: `user@demo.com`
+Password: `password`
 
-Please note that the code should be clean, commented and well structured. We will test the endpoints using postman so you provide us with a postman collection with all the endpoints.
+### Testing
+- Postman collection
+  
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/5a2cb6e73cfddb628b4f)
 
-Creating the exact models needed for the application to work properly is completely up to you. You can opt to use MySQL, MariaDB or PostgreSQL as you database.
+- I wrote feature tests. 2 reason, 1: I have enough time, 2: I feel bored by manual testing. 
+Run `phpunit` to execute automatic tests.
+![test.png](testing.png)  
 
-### Register :
-- Require email, password and password confirmation as post body
-- Route should create a user that is not verified in the database
-- Route should send a verification email to the user's email.
-- Return appropriate response
 
-### Verification :
-- Create logic for verifying the user from the verification code sent to the user’s email address
-
-### Login :
-- Require email and password as the post body.
-- Authenticate the user through provided credentials.
-- If user is verified and email/password are correct, respond with a JWT token, otherwise show the appropriate response
-
-### Logout :
-- Invalidate the user's JWT token
-
-### ToDo List :
-- Users can view only their todo items in the list.
-- Send out a paginated list of ToDos (up to 10 items per page, preferably use Laravel's built in pagination)
-- Implement logic to search items in the list by name.
-
-### Create ToDo :
-- 2 fields required: title and description of the ToDo item
-- On success save the item to the database
-- Return appropriate response
-
-### View ToDo :
-- Respond with an object containing the title and description of the requested ToDo
-
-### Update ToDo :
-- 2 fields required: title and description of the ToDo item
-- On success save updated item to the database
-- Return appropriate response
-
-### Delete ToDo :
-- Delete the item from the database.
-- Return appropriate response.
-
+### Note
+For testing purpose, I'm sending mail to log driver for testing purposes. 
